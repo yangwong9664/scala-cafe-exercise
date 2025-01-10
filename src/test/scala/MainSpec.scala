@@ -41,4 +41,11 @@ class MainSpec extends AnyFlatSpec with should.Matchers {
     calculateBill(items) should be(BigDecimal(items.map(_.price).sum * 1.1)
       .setScale(2, BigDecimal.RoundingMode.HALF_EVEN).doubleValue)
   }
+
+  it should "round values to two decimal places" in {
+    val customCheese = cheeseSandwich.copy(price = 3.00000000000000000000000000001)
+    val items = List(customCheese, coffee, coffee)
+    calculateBill(items) should be(BigDecimal(items.map(_.price).sum * 1.1)
+      .setScale(2, BigDecimal.RoundingMode.HALF_EVEN).doubleValue)
+  }
 }
